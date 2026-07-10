@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard // Control Panel</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+    --bg:#0a0f1a;
+    --panel:rgba(255,255,255,.04);
+    --border:#1b2a3a;
+
+    --cyan:#00e5ff;
+    --green:#00ff9d;
+    --orange:#ffb347;
+    --red:#ff4d6d;
+    --text:#d7e6ff;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Orbitron',sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+}
+
+/* animated grid background */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+    background-size:45px 45px;
+    pointer-events:none;
+}
+
+/* glow orbs */
+.glow{
+    position:fixed;
+    width:600px;
+    height:600px;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.15;
+}
+
+.glow1{background:var(--cyan); top:-200px; left:-200px;}
+.glow2{background:var(--orange); bottom:-200px; right:-200px;}
+
+/* top bar */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 6%;
+    background:rgba(10,15,26,.6);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+}
+
+.logo{
+    font-weight:700;
+    color:var(--cyan);
+    letter-spacing:2px;
+}
+
+.status{
+    color:var(--green);
+    font-size:.9rem;
+}
+
+.status.error{
+    color:var(--red);
+}
+
+/* layout */
+
+.container{
+    display:grid;
+    grid-template-columns:260px 1fr 320px;
+    gap:20px;
+    padding:25px 6%;
+}
+
+/* panels */
+
+.panel{
+    background:var(--panel);
+    border:1px solid var(--border);
+    padding:20px;
+}
+
+/* sidebar */
+
+.sidebar h3{
+    color:var(--cyan);
+    margin-bottom:15px;
+}
+
+.nav-item{
+    padding:10px;
+    margin:8px 0;
+    border:1px solid var(--border);
+    cursor:pointer;
+    transition:.2s;
+}
+
+.nav-item:hover{
+    border-color:var(--cyan);
+    transform:translateX(5px);
+}
+
+/* main dashboard cards */
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:15px;
+}
+
+.card{
+    padding:15px;
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.02);
+}
+
+.card h4{
+    color:var(--cyan);
+    margin-bottom:10px;
+}
+
+/* stats */
+
+.stat{
+    font-size:1.8rem;
+    color:var(--green);
+    overflow-wrap:anywhere;
+}
+
+/* progress bars */
+
+.bar{
+    height:8px;
+    background:#1b2a3a;
+    margin-top:10px;
+}
+
+.bar span{
+    display:block;
+    height:100%;
+    background:var(--cyan);
+}
+
+/* right panel alerts */
+
+.alert{
+    border-left:3px solid var(--red);
+    padding:10px;
+    margin:10px 0;
+    background:rgba(255,77,109,.05);
+    font-size:.8rem;
+}
+
+.alert.success{
+    border-left-color:var(--green);
+    background:rgba(0,255,157,.05);
+}
+
+.muted{
+    color:#7fa6c9;
+}
+
+/* table */
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:15px;
+    font-size:.85rem;
+}
+
+th, td{
+    border:1px solid var(--border);
+    padding:10px;
+    text-align:left;
+}
+
+th{
+    color:var(--cyan);
+}
+
+/* footer */
+
+footer{
+    text-align:center;
+    padding:30px;
+    border-top:1px solid var(--border);
+    color:#7fa6c9;
+}
+
+/* responsive */
+
+@media(max-width:1000px){
+    .container{
+        grid-template-columns:1fr;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<header>
+    <div class="logo">CONTROL DASHBOARD // NODE CORE</div>
+    <div class="status" id="systemStatus">● CONNECTING TO DATABASE</div>
+</header>
+
+<div class="container">
+
+    <!-- sidebar -->
+    <aside class="panel sidebar">
+
+        <h3>NAVIGATION</h3>
+
+        <div class="nav-item">Overview</div>
+        <div class="nav-item">Users</div>
+        <div class="nav-item">Projects</div>
+        <div class="nav-item">Analytics</div>
+        <div class="nav-item">Database</div>
+        <div class="nav-item">Settings</div>
+
+    </aside>
+
+    <!-- main -->
+    <main class="panel">
+
+        <h3 style="color:var(--cyan); margin-bottom:15px;">SYSTEM OVERVIEW</h3>
+
+        <div class="grid">
+
+            <div class="card">
+                <h4>Total Users</h4>
+                <div class="stat" id="totalUsers">--</div>
+                <div class="bar"><span id="totalUsersBar" style="width:0%"></span></div>
+            </div>
+
+            <div class="card">
+                <h4>New Users</h4>
+                <div class="stat" id="newUsers">--</div>
+                <div class="bar"><span id="newUsersBar" style="width:0%; background:var(--green)"></span></div>
+            </div>
+
+            <div class="card">
+                <h4>Active Sessions</h4>
+                <div class="stat" id="activeSessions">--</div>
+                <div class="bar"><span id="activeSessionsBar" style="width:0%; background:var(--orange)"></span></div>
+            </div>
+
+            <div class="card">
+                <h4>Database Health</h4>
+                <div class="stat" id="databaseHealth">Checking</div>
+                <div class="bar"><span id="databaseHealthBar" style="width:0%"></span></div>
+            </div>
+
+        </div>
+
+        <h3 style="color:var(--cyan); margin-top:25px;">RECENT ACTIVITY</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+
+            <tbody id="recentUsersTable">
+                <tr>
+                    <td colspan="3" class="muted">Loading database records...</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </main>
+
+    <!-- right panel -->
+    <aside class="panel">
+
+        <h3 style="color:var(--cyan);">SYSTEM ALERTS</h3>
+
+        <div class="alert success" id="dashboardAlert">Waiting for database response</div>
+
+        <h3 style="color:var(--green); margin-top:20px;">DATABASE STATUS</h3>
+
+        <p id="databaseStatusText" style="font-size:.85rem; line-height:1.6;">
+            Connecting to PostgreSQL through the backend API.
+        </p>
+
+        <h3 style="color:var(--orange); margin-top:20px;">QUICK ACTIONS</h3>
+
+        <div class="nav-item">Run Backup</div>
+        <div class="nav-item">Clear Cache</div>
+        <div class="nav-item">Restart API</div>
+
+    </aside>
+
+</div>
+
+<footer>
+    SYSTEM ONLINE // ALL MODULES OPERATIONAL
+</footer>
+
+<script>
+const dashboardState = {
+    systemStatus: document.getElementById("systemStatus"),
+    totalUsers: document.getElementById("totalUsers"),
+    newUsers: document.getElementById("newUsers"),
+    activeSessions: document.getElementById("activeSessions"),
+    databaseHealth: document.getElementById("databaseHealth"),
+    totalUsersBar: document.getElementById("totalUsersBar"),
+    newUsersBar: document.getElementById("newUsersBar"),
+    activeSessionsBar: document.getElementById("activeSessionsBar"),
+    databaseHealthBar: document.getElementById("databaseHealthBar"),
+    recentUsersTable: document.getElementById("recentUsersTable"),
+    dashboardAlert: document.getElementById("dashboardAlert"),
+    databaseStatusText: document.getElementById("databaseStatusText")
+};
+
+function setBarWidth(element, value, max) {
+    const safeMax = Math.max(max, 1);
+    const width = Math.min(Math.round((value / safeMax) * 100), 100);
+    element.style.width = `${width}%`;
+}
+
+function formatDate(value) {
+    return new Intl.DateTimeFormat("en", {
+        dateStyle: "medium",
+        timeStyle: "short"
+    }).format(new Date(value));
+}
+
+function escapeHtml(value) {
+    return String(value).replace(/[&<>"']/g, (character) => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+    })[character]);
+}
+
+function renderRecentUsers(users) {
+    if (!users.length) {
+        dashboardState.recentUsersTable.innerHTML = `
+            <tr>
+                <td colspan="3" class="muted">No users found in the database.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    dashboardState.recentUsersTable.innerHTML = users.map((user) => {
+        return `
+            <tr title="Created ${formatDate(user.created_at)}">
+                <td>${escapeHtml(user.username)}</td>
+                <td>${escapeHtml(user.email)}</td>
+                <td>registered</td>
+            </tr>
+        `;
+    }).join("");
+}
+
+async function loadDashboard() {
+    try {
+        const response = await fetch("/api/dashboard/summary");
+        const payload = await response.json();
+
+        if (!response.ok || !payload.success) {
+            throw new Error(payload.message || "Dashboard API request failed");
+        }
+
+        const { stats, database, recentUsers } = payload;
+        const largestMetric = Math.max(
+            stats.totalUsers,
+            stats.newUsers,
+            stats.activeSessions,
+            1
+        );
+
+        dashboardState.systemStatus.textContent = "● DATABASE CONNECTED";
+        dashboardState.systemStatus.classList.remove("error");
+        dashboardState.totalUsers.textContent = stats.totalUsers;
+        dashboardState.newUsers.textContent = stats.newUsers;
+        dashboardState.activeSessions.textContent = stats.activeSessions;
+        dashboardState.databaseHealth.textContent = database.status;
+
+        setBarWidth(dashboardState.totalUsersBar, stats.totalUsers, largestMetric);
+        setBarWidth(dashboardState.newUsersBar, stats.newUsers, largestMetric);
+        setBarWidth(dashboardState.activeSessionsBar, stats.activeSessions, largestMetric);
+        dashboardState.databaseHealthBar.style.width = "100%";
+
+        renderRecentUsers(recentUsers);
+
+        dashboardState.dashboardAlert.className = "alert success";
+        dashboardState.dashboardAlert.textContent = "PostgreSQL data loaded from backend API";
+        dashboardState.databaseStatusText.textContent =
+            `PostgreSQL connection stable. Last database response: ${formatDate(database.serverTime)}.`;
+    } catch (error) {
+        dashboardState.systemStatus.textContent = "● DATABASE OFFLINE";
+        dashboardState.systemStatus.classList.add("error");
+        dashboardState.databaseHealth.textContent = "Offline";
+        dashboardState.databaseHealthBar.style.width = "0%";
+        dashboardState.dashboardAlert.className = "alert";
+        dashboardState.dashboardAlert.textContent = error.message;
+        dashboardState.databaseStatusText.textContent =
+            "The dashboard could not reach the backend database API. Check the server and PostgreSQL configuration.";
+        dashboardState.recentUsersTable.innerHTML = `
+            <tr>
+                <td colspan="3" class="muted">Database records unavailable.</td>
+            </tr>
+        `;
+    }
+}
+
+loadDashboard();
+</script>
+
+</body>
+</html>
