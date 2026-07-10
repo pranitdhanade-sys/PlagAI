@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pricing • PlagAI</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+
+font-family:'Space Grotesk',sans-serif;
+background:#f4f4ef;
+color:#111;
+padding:40px;
+
+}
+
+.container{
+
+max-width:1200px;
+margin:auto;
+
+}
+
+/* NAVBAR */
+
+nav{
+
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:70px;
+
+}
+
+.logo{
+
+font-size:24px;
+font-weight:800;
+
+}
+
+nav ul{
+
+display:flex;
+gap:20px;
+list-style:none;
+
+}
+
+nav a{
+
+text-decoration:none;
+color:#111;
+font-weight:700;
+
+}
+
+/* HERO */
+
+.hero{
+
+text-align:center;
+margin-bottom:70px;
+
+}
+
+.badge{
+
+display:inline-block;
+background:#111;
+color:#fff;
+padding:8px 18px;
+font-size:14px;
+font-weight:700;
+margin-bottom:25px;
+
+}
+
+.title{
+
+font-size:64px;
+font-weight:800;
+line-height:1.05;
+margin-bottom:25px;
+
+}
+
+.desc{
+
+max-width:700px;
+margin:auto;
+font-size:18px;
+line-height:1.8;
+
+}
+
+/* PRICING GRID */
+
+.pricing{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:30px;
+
+}
+
+.plan{
+
+background:#fff;
+border:4px solid #111;
+padding:35px;
+box-shadow:10px 10px 0 #111;
+transition:.2s;
+
+}
+
+.plan:hover{
+
+transform:translate(-5px,-5px);
+box-shadow:16px 16px 0 #111;
+
+}
+
+.popular{
+
+background:#ffea00;
+
+}
+
+.plan h3{
+
+font-size:30px;
+margin-bottom:10px;
+
+}
+
+.price{
+
+font-size:60px;
+font-weight:800;
+margin:25px 0;
+
+}
+
+.price span{
+
+font-size:18px;
+font-weight:500;
+
+}
+
+.features{
+
+list-style:none;
+margin-top:20px;
+
+}
+
+.features li{
+
+padding:12px 0;
+border-bottom:2px dashed #111;
+font-weight:500;
+
+}
+
+button{
+
+margin-top:35px;
+width:100%;
+padding:18px;
+
+border:4px solid #111;
+background:#8bf18b;
+
+font-size:18px;
+font-weight:800;
+
+cursor:pointer;
+
+box-shadow:6px 6px 0 #111;
+
+transition:.2s;
+
+}
+
+button:hover{
+
+transform:translate(-2px,-2px);
+box-shadow:10px 10px 0 #111;
+
+}
+
+/* FAQ */
+
+.faq{
+
+margin-top:90px;
+
+background:#fff;
+
+border:4px solid #111;
+
+padding:40px;
+
+box-shadow:12px 12px 0 #111;
+
+}
+
+.faq h2{
+
+font-size:38px;
+margin-bottom:30px;
+
+}
+
+.question{
+
+margin-bottom:30px;
+
+}
+
+.question h4{
+
+font-size:22px;
+margin-bottom:12px;
+
+}
+
+.question p{
+
+line-height:1.8;
+
+}
+
+/* FOOTER */
+
+footer{
+
+margin-top:80px;
+text-align:center;
+font-weight:700;
+
+}
+
+@media(max-width:900px){
+
+.title{
+
+font-size:48px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<nav>
+
+<div class="logo">🛡️ PLAGAI</div>
+
+<ul>
+
+<li><a href="#">Home</a></li>
+<li><a href="#">Features</a></li>
+<li><a href="#">Pricing</a></li>
+
+</ul>
+
+</nav>
+
+<section class="hero">
+
+<div class="badge">
+SIMPLE PRICING
+</div>
+
+<div class="title">
+Choose the Perfect<br>
+Plan for Your<br>
+Writing Journey
+</div>
+
+<p class="desc">
+
+Whether you're a student, educator, researcher, or enterprise,
+PlagAI offers powerful plagiarism detection and AI content analysis
+with transparent pricing and no hidden fees.
+
+</p>
+
+</section>
+
+<section class="pricing">
+
+<div class="plan">
+
+<h3>Free</h3>
+
+<div class="price">
+
+$0 <span>/month</span>
+
+</div>
+
+<ul class="features">
+
+<li>✓ 5 scans per month</li>
+<li>✓ AI detection</li>
+<li>✓ Basic plagiarism report</li>
+<li>✓ PDF upload</li>
+<li>✓ Email support</li>
+
+</ul>
+
+<button>
+Get Started
+</button>
+
+</div>
+
+<div class="plan popular">
+
+<h3>Pro ⭐</h3>
+
+<div class="price">
+
+$12 <span>/month</span>
+
+</div>
+
+<ul class="features">
+
+<li>✓ Unlimited scans</li>
+<li>✓ Deep plagiarism search</li>
+<li>✓ AI detection (GPT, Claude, Gemini)</li>
+<li>✓ Grammar suggestions</li>
+<li>✓ Citation Generator</li>
+<li>✓ Export PDF & DOCX</li>
+<li>✓ Priority Support</li>
+
+</ul>
+
+<button>
+Start Pro
+</button>
+
+</div>
+
+<div class="plan">
+
+<h3>Enterprise</h3>
+
+<div class="price">
+
+Custom
+
+</div>
+
+<ul class="features">
+
+<li>✓ Unlimited everything</li>
+<li>✓ Team dashboard</li>
+<li>✓ API Access</li>
+<li>✓ LMS Integration</li>
+<li>✓ Dedicated Manager</li>
+<li>✓ Custom AI Models</li>
+<li>✓ SLA Support</li>
+
+</ul>
+
+<button>
+Contact Sales
+</button>
+
+</div>
+
+</section>
+
+<section class="faq">
+
+<h2>Frequently Asked Questions</h2>
+
+<div class="question">
+
+<h4>Can I cancel anytime?</h4>
+
+<p>
+Yes. You can upgrade, downgrade, or cancel your subscription whenever you want.
+There are no long-term contracts.
+</p>
+
+</div>
+
+<div class="question">
+
+<h4>Does Pro include AI detection?</h4>
+
+<p>
+Yes. The Pro plan includes advanced AI detection, plagiarism reports,
+citation generation, and grammar assistance.
+</p>
+
+</div>
+
+<div class="question">
+
+<h4>Who should choose Enterprise?</h4>
+
+<p>
+Enterprise is designed for universities, schools, publishers, and businesses
+that require team management, API access, and custom integrations.
+</p>
+
+</div>
+
+</section>
+
+<footer>
+
+2026 • PlagAI Pricing
+
+</footer>
+
+</div>
+
+</body>
+</html>
