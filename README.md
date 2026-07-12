@@ -21,6 +21,14 @@ PlagAI is an intelligent plagiarism detection platform that helps students, educ
 - Docker support
 
 ---
+| Metric | Target |
+|---|---|
+| Deepfake Detection Accuracy | >95% |
+| Phishing Detection Precision | >95% |
+| Verification Time | <2 seconds |
+| False Positive Rate | <2% |
+| Official Communication Coverage | 100% |
+ 
 
 ## Screenshots
 
